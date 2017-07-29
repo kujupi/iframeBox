@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name=“renderer” content=“webkit|ie-comp|ie-stand”>
+		<!--[if lte IE 8]><script>window.location.href='http://cdn.dmeng.net/upgrade-your-browser.html?referrer='+location.href;</script><![endif]-->
+		<title>ERP</title>
+		<!--css-->
+		<link rel="stylesheet" type="text/css" href="css/base_initialize.css"/>
+		<link rel="stylesheet" type="text/css" href="lib/font-awesome-4.7.0/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/frame.css"/>
+		
+	</head>
+	<body>
+		<div class="erp-outer clearfix">
+			<!--视图模块开始-->
+			<div class="view col1">
+				<div class="view-max"></div>
+				
+				<!--视图模块标签开始-->
+				<ul class="view-lable-cont clearfix col4">
+					<li v-for="(lable, index) in lables" :class="lable.now? 'col5': ''" :title="lable.name" :data-id="lable.id" :data-i="index" :style="'width:' + listLablesWidth + 'px'"  @click="nemuListLableC(lable.id)">
+						<span>{{lable.name}}</span>
+						<em v-if="lable.colse" class="btn-col2" @click.stop="nemuListLableRemoveC(lable.id)">&otimes;</em>
+					</li>
+				</ul>
+				<!--视图模块标签结束-->
+				
+				<div class="view-view">
+					<iframe src="http://cn.bing.com/" data-id="index" frameborder="0" width="100%" height="100%"></iframe>
+				</div>
+			</div>
+			<!--视图模块结束-->
+			
+			<!--填写模块开始-->
+			<div class="fill">
+				<div class="fill-conter col6 shadow2">
+					<!--操作区域开始-->
+					<div class="fill-ctrl">
+						<i data-type="max" title="最大化" class="iconfont" v-show="fillCtrl.max" @click="fillC('max')">&#xe604;</i>
+						<i data-type="restore" title="向下还原" class="iconfont" v-show="fillCtrl.restore" @click="fillC('restore')">&#xe638;</i>
+						<i data-type="main" title="最小化" class="iconfont" v-show="fillCtrl.main" @click="fillC('main')">&#xe68e;</i>
+						<i data-type="close" title="关闭" class="iconfont" v-show="fillCtrl.close" @click="fillC('close')">&#xe60a;</i>
+					</div>
+					<!--操作区域结束-->
+					
+					<!--视图区域开始-->
+					<div class="fill-view">
+						
+					</div>
+					<!--视图区域结束-->
+				</div>
+			</div>
+			<!--form模块结束-->
+			
+			<!--菜单模块开始-->
+			<div class="menu ">
+				<div class="menu-in shadow2">
+					<!--最大化菜单栏-->
+					<div class="menu-max">
+						<div class="menu-max-img">
+							<p class="img-col1"><img src="img/girl.png"/></p>
+							<i class="menu-max-img-icon"></i>
+						</div>
+						<ul class="menu-max-nav">
+							<li class="btn-col1">菜单</li>
+							<li class="btn-col1">2</li>
+							<li class="btn-col1">3</li>
+							<li class="btn-col1">4</li>
+						</ul>
+					</div>
+					<!--最大化菜单栏-->
+					
+					<!--个人中心开始-->
+					<div class="menu-personal clearfix col2 col7">
+						<div class="menu-personal-img">
+							<p class="img-col1"><img src="img/girl.png"/></p>
+							<i class="menu-personal-img-icon"></i>
+							<div class="menu-personal-img-bomb">
+								<header>
+									<div class="menu-personal-img-bomb-header col2"></div>
+								</header>
+								<ul class="menu-personal-img-nav col2">
+									<li class="btn-col3">修改密码</li>
+									<li class="btn-col3">更改头像</li>
+									<li class="btn-col3">系统设置</li>
+									<li class="btn-col3">退出登录</li>
+								</ul>
+							</div>
+						</div>
+						<div class="menu-personal-info col2">
+							<h2 class="menu-personal-info-name">{{loginInfo.name}}</h2>
+							<p class="menu-personal-info-job">{{loginInfo.job}}</p>
+							<ul class="menu-personal-info-shortcut clearfix">
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</div>
+					<!--个人中心结束-->
+					
+					<!--菜单模块切换开始-->
+					<div class="menu-nav">
+						<ul class="col3 clearfix">
+							<li class="col2" data-type="menu">菜单</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+						</ul>
+					</div>
+					<!--菜单模块切换结束-->
+					
+					<!--菜单容器开始-->
+					<div class="menu-cont">
+						<!--菜单列表开始-->
+						<div class="menu-list">
+							<div v-for="menu1 in  menuNav" class="menu-list-box1">
+								<h1 :data-id="menu1.id" data-open="0">
+									<i class="fa menu-list-h1-left" :class="[menu1.icon]"></i>
+									<span>{{menu1.name}}</span>
+									<i class="menu-list-h1-right fa fa-angle-up"></i>
+								</h1>
+								<div v-if="menu1.list && menu1.list.length > 0" class="menu-list-box2">
+									<div v-for="menu2 in menu1.list">
+										<h2 v-if="menu2.id" :data-id="menu2.id"><span :data-href="menu2.href" class="btn-col3" @click="nemuListC(menu2.id, menu2.href, menu2.name)">{{menu2.name }}</span></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--菜单列表结束-->
+					</div>
+					<!--菜单容器结束-->
+				</div>
+			</div>
+			<!--菜单模块结束-->
+		</div>
+		
+		
+		
+		<!--JS-->
+		<script src="lib/vue/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/jQuery/jQuery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="lib/drag-arrange/drag-arrange.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/frame.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
